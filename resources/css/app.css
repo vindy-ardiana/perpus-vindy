@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+:root {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.tabel-1{
+    @apply mt-3 table-auto w-full border-collapse border border-gray-300;
+}
+
+.custom_th {
+    @apply border border-gray-300 px-4 py-2 text-left;
+}
+
+.custom_td {
+    @apply border border-gray-300 px-4 py-2;
+}
+
+.tombol-biru {
+    @apply bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600;
+}
+.tombol-merah {
+    @apply bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600;
+}
+.tombol-hijau{
+    @apply bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600;
+}
+.tombol-orange {
+    @apply bg-orange-500 text-white px-2 py-1 rounded hover:bg-orange-600;
+}
+
+.tombol-abu{
+    @apply bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600;
+}
+
+
+.judul-h3{
+    @apply text-xl font-bold mb-3 border-b pb-3;
+}
