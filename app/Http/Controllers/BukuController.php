@@ -21,15 +21,14 @@ class BukuController extends Controller
     $query = $request->input('q');
 
     if($query) {
-        $allBuku = Buku::when($query, function($queryBuilder) use($query){
+        $allBuku = Buku::with('kategoris')->when($query, function($queryBuilder) use($query){
             $queryBuilder->where('judul', 'like', '%'. $query . '%')
                 ->orWhere('pengarang', 'like', '%'. $query . '%')
                 ->orWhere('tahun_terbit', 'like', '%'. $query . '%');
         })->paginate(10);
         $allBuku->appends(['q' => $query]);
-        
     } else {
-        $allBuku = Buku::latest()->paginate(5);
+        $allBuku = Buku::with('kategoris')->latest()->paginate(5);
     }
         // $allBuku = Buku::all();
         return view('buku.index', compact('allBuku'));
@@ -57,28 +56,24 @@ class BukuController extends Controller
         $validatedData = $request->validate([
             'judul' => 'required|max:255',
             'pengarang' => 'required|max:100',
-            'tahun_terbit' => 'required|integer:4',
-            'kategori_id' => 'required',
+            'tahun_terbit' => 'required|integer',
+            'kategori_ids' => 'required|array|min:1',
+            'kategori_ids.*' => 'exists:kategoris,id',
             'penerbit_id' => 'required',
             'file_cover' => 'nullable|image|mimes:jpeg,jpg,png|max:1024',
             'deskripsi' => 'required',
             'stok' => 'required',
-
         ]);
 
-        // upload file cover
         if ($request->hasFile('file_cover')) {
             $validatedData['cover'] = $request->file('file_cover')->store('cover', 'public');
         }
+        unset($validatedData['file_cover'], $validatedData['kategori_ids']);
 
-        // hapus file cover dari array validasi 
-        unset($validatedData['file_cover']);
+        $buku = Buku::create($validatedData);
+        $buku->kategoris()->sync($request->kategori_ids);
 
-        // simpan data
-        Buku::create($validatedData);
-
-        // redirect ke index buku
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambah.');
     }
         
     /**
@@ -105,35 +100,30 @@ class BukuController extends Controller
     public function update(Request $request, Buku $buku)
     {
    
-        //buat validasi
         $validatedData = $request->validate([
             'judul' => 'required|max:255',
             'pengarang' => 'required|max:100',
-            'tahun_terbit' => 'required|integer:4',
-            'kategori_id' => 'required',
+            'tahun_terbit' => 'required|integer',
+            'kategori_ids' => 'required|array|min:1',
+            'kategori_ids.*' => 'exists:kategoris,id',
             'penerbit_id' => 'required',
             'file_cover' => 'nullable|image|mimes:jpeg,jpg,png|max:1024',
             'deskripsi' => 'required',
             'stok' => 'required',
-
         ]);
 
-        // upload file cover
         if ($request->hasFile('file_cover')) {
             $validatedData['cover'] = $request->file('file_cover')->store('cover', 'public');
-
             if ($request->cover_lama) {
                 Storage::delete('public/' . $request->cover_lama);
-            }        }
+            }
+        }
+        unset($validatedData['file_cover'], $validatedData['kategori_ids']);
 
-        // hapus file cover dari array validasi 
-        unset($validatedData['file_cover']);
-
-        // update data
         $buku->update($validatedData);
+        $buku->kategoris()->sync($request->kategori_ids);
 
-        // redirect ke index buku
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil diubah.');
     }
     
 
@@ -155,13 +145,13 @@ class BukuController extends Controller
         $totalBuku     = Buku::count();        // jumlah data buku
         $totalKategori = Kategori::count();    // jumlah kategori
         $totalPenerbit = Penerbit::count();    // jumlah penerbit
-        $totalUser     = User::count();        // jumlah user
+        $totalUserAktif    = User::count();        // jumlah user
 
         return view('test', compact(
             'totalBuku',
             'totalKategori',
             'totalPenerbit',
-            'totalUser'
+            'totalUserAktif'
         ));
     }
 

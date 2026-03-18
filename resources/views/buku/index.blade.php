@@ -82,7 +82,7 @@
                     </td>
 
                     <td class="px-6 py-4 text-gray-700">
-                        {{ $r->kategori->nama_kategori }}
+                        {{ $r->kategoris->pluck('nama_kategori')->join(', ') ?: '-' }}
                     </td>
 
                     <td class="px-6 py-4">

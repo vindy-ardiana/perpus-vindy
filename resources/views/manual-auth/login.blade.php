@@ -82,6 +82,7 @@
                            hover:bg-indigo-700 transition active:scale-95">
                     Login
                 </button>
+                <a href="{{ route('registrasi') }}" class="text-blue-700 hover:underline text-center">Belum punya akun? Daftar di sini</a>
             </form>
 
         </div>

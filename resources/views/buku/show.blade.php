@@ -43,7 +43,7 @@
             <tr class="border-b">
                 <td class="py-2 font-medium">Kategori</td>
                 <td class="py-2">:</td>
-                <td class="py-2">{{ $buku->kategori->nama_kategori }}</td>
+                <td class="py-2">{{ $buku->kategoris->pluck('nama_kategori')->join(', ') ?: '-' }}</td>
             </tr>
 
             <tr class="border-b">

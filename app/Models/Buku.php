@@ -12,9 +12,9 @@ class Buku extends Model
 
     protected $guarded = [];
 
-    public function kategori(): BelongsTo
+    public function kategoris()
     {
-        return $this->belongsTo(Kategori::class);
+        return $this->belongsToMany(Kategori::class, 'buku_kategori');
     }
 
     public function penerbit(): BelongsTo
@@ -26,5 +26,20 @@ class Buku extends Model
         return $this->belongsToMany(Peminjaman::class, 'peminjaman_bukus');
     }
 
-    
+    public function ulasans()
+    {
+        return $this->hasManyThrough(
+            Ulasan::class,
+            TransaksiPeminjaman::class,
+            'buku_id',
+            'transaksi_peminjaman_id',
+            'id',
+            'id'
+        );
+    }
+
+    public function getRataRataRatingAttribute(): float
+    {
+        return (float) $this->ulasans()->avg('rating') ?: 0;
+    }
 }

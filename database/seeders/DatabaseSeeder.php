@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com'
         // ]);
 
-       
-        User::factory()->create([
-            'name' => 'Vindy Ardiana',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin123'),
-            'role' => 'admin'
-        ]);
+
+        // User::factory()->create([
+        //     'name' => 'Vindy Ardiana',
+        //     'email' => 'admin@admin.com',
+        //     'password' => Hash::make('admin123'),
+        //     'role' => 'admin'
+        // ]);
 
         Buku::factory()->count(50)->create();
     }

@@ -1,41 +1,69 @@
 @extends('layout.user')
 
-@section('title', 'Daftar Buku')
+@section('title','Koleksi Buku')
 
 @section('content')
-<h2 class="text-2xl font-bold mb-6">📚 Daftar Buku</h2>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="max-w-7xl mx-auto px-6 py-10">
 
-@foreach ($bukus as $buku)
-<div class="bg-white border rounded-xl p-4 hover:shadow transition">
+<h2 class="text-3xl font-bold text-gray-800 mb-8">
+    Koleksi Buku
+</h2>
 
-    <div class="h-40 bg-slate-200 rounded mb-3 overflow-hidden">
-        @if ($buku->cover)
+<!-- GRID BUKU -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-5">
+
+    @forelse($bukus as $buku)
+
+    <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 p-3 text-center group flex flex-col">
+
+        <!-- COVER -->
+        <div class="flex items-center justify-center h-56 bg-gray-50 rounded-lg overflow-hidden">
+            @if($buku->cover)
             <img src="{{ asset('storage/'.$buku->cover) }}"
-                 class="w-full h-full object-cover">
-        @else
-            <div class="h-full flex items-center justify-center text-slate-500">
-                No Cover
-            </div>
-        @endif
+                 class="max-h-full object-contain group-hover:scale-105 transition duration-300">
+            @else
+            <span class="text-gray-400 text-xs">No Cover</span>
+            @endif
+        </div>
+
+        <!-- JUDUL -->
+        <h4 class="mt-3 font-semibold text-gray-800 text-sm line-clamp-2 min-h-[40px]">
+            {{ $buku->judul }}
+        </h4>
+
+        <!-- RATING -->
+        <div class="flex justify-center mt-1 text-yellow-400 text-xs">
+            @if(($buku->ulasans_avg_rating ?? 0) > 0)
+                ⭐ {{ number_format($buku->ulasans_avg_rating,1) }}
+            @else
+                ☆☆☆☆☆
+            @endif
+        </div>
+
+        <!-- STOK -->
+        <p class="text-xs text-gray-500 mt-1">
+            Stok: {{ $buku->stok }}
+        </p>
+
+        <!-- BUTTON -->
+        <a href="{{ route('user.buku.detail',$buku->id) }}"
+           class="mt-auto mt-3 bg-indigo-600 text-white text-xs py-2 rounded-lg hover:bg-indigo-700 transition">
+           Detail
+        </a>
+
     </div>
 
-    <h3 class="font-semibold">{{ $buku->judul }}</h3>
-    <p class="text-sm text-slate-500">
-        {{ $buku->kategori->nama_kategori ?? '-' }}
-    </p>
-    <p class="text-sm mt-1">
-        Stok: <span class="font-semibold">{{ $buku->stok }}</span>
-    </p>
+    @empty
 
-    <a href="{{ route('user.buku.detail', $buku->id) }}"
+    <div class="col-span-5 text-center text-gray-400 py-20">
+        Belum ada buku tersedia
+    </div>
 
-       class="block text-center mt-3 bg-blue-600 text-white py-2 rounded-lg text-sm hover:bg-blue-700">
-        Detail Buku
-    </a>
-</div>
-@endforeach
+    @endforelse
 
 </div>
+
+</div>
+
 @endsection

@@ -54,16 +54,14 @@ class AuthManualController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-             $request->session()->regenerate();
-             //cek role user : 
-             // admin user petugas
-             Alert::success('Selamat!', 'Anda telah berhasil masuk ke sistem!');
-            if(Auth::user()->role != 'admin'){
-                return redirect()->route('user.dashboard');
+            $request->session()->regenerate();
+            Alert::success('Selamat!', 'Anda telah berhasil masuk ke sistem!');
+            $role = Auth::user()->role;
+            // Admin & Petugas -> dashboard admin; User -> dashboard user
+            if ($role === 'admin' || $role === 'petugas') {
+                return redirect()->route('dashboard');
             }
-           
-            // Alert::success('Selamat!', 'Anda telah berhasil masuk ke sistem!');
-            return redirect()->route('dashboard');
+            return redirect()->route('user.dashboard');
         }
 
         // Alert::alert('Gagal Login', 'Username atau Password anda salah', 'error');

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'banned_until',
     ];
 
     /**
@@ -43,7 +44,13 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'banned_until' => 'date',
         ];
+    }
+
+    /** Cek apakah user sedang dalam masa banned */
+    public function isBanned(): bool
+    {
+        return $this->banned_until && now()->startOfDay()->lte($this->banned_until);
     }
 }
