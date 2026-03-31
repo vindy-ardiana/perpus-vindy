@@ -132,9 +132,9 @@
 
             <div class="relative group">
                 <button class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl shadow-sm hover:shadow transition">
-                    <img src="https://via.placeholder.com/40"
+                    {{-- <img src="https://via.placeholder.com/40"
                          class="w-9 h-9 rounded-full border border-indigo-200">
-                    <span class="text-gray-700 font-medium">
+                    <span class="text-gray-700 font-medium"> --}}
                         {{ Auth::user()->name }}
                     </span>
                 </button>

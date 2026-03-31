@@ -36,8 +36,8 @@
                     <span class="material-icons text-indigo-500">menu_book</span>
                     <span>Koleksi Buku</span>
                 </a>
-                <a href="{{ route('user.koleksi') }}"
-                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-indigo-50 hover:shadow transition-all {{ request()->routeIs('user.koleksi') ? 'bg-indigo-50 text-indigo-600 font-semibold' : '' }}">
+                <a href="{{ route('user.koleksi-pribadi') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-indigo-50 hover:shadow transition-all {{ request()->routeIs('user.koleksi-pribadi') ? 'bg-indigo-50 text-indigo-600 font-semibold' : '' }}">
                     <span class="material-icons text-indigo-500">bookmark</span>
                     <span>Koleksi Pribadi</span>
                 </a>

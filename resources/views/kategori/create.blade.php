@@ -20,7 +20,8 @@
                 </div>
                 <div class="flex gap-3 pt-2">
                     <a href="{{ route('kategori.index') }}" class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 transition">Batal</a>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition">Simpan</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600
+                     text-white font-medium hover:bg-indigo-700 transition">Simpan</button>
                 </div>
             </div>
         </form>

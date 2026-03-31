@@ -96,10 +96,10 @@
             <!-- Tombol Bookmark / Simpan Koleksi -->
             <form action="{{ route('koleksi.simpan', $buku->id) }}" method="POST">
                 @csrf
-                <button
-                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2">
-                    <span class="material-icons">bookmark</span>
-                    Simpan
+                <button type="submit"
+                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2.5 rounded-lg font-medium flex items-center gap-2 transition shadow-sm">
+                    <span class="material-icons text-lg">bookmark</span>
+                    Simpan ke Koleksi Pribadi
                 </button>
             </form>
         </div>

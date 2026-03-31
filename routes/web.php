@@ -74,17 +74,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/user/pengembalian/{transaksi}', [TransaksiController::class, 'ajukanPengembalian'])->name('user.ajukan.pengembalian');
     Route::post('/user/ulasan/{transaksi}', [UlasanController::class, 'store'])->name('user.ulasan.store');
     Route::get('/user/koleksi',[KoleksiBukuUserController::class,'index'])->name('user.koleksi');
+    Route::get('/user/koleksi-pribadi', [KoleksiController::class, 'index'])->name('user.koleksi-pribadi');
     Route::get('/user/riwayat',[KoleksiBukuUserController::class,'riwayat'])->name('user.riwayat');
     Route::get('/user/riwayat/pdf', [KoleksiBukuUserController::class, 'riwayatPdf'])->name('user.riwayat.pdf');
     // Route simpan buku ke koleksi
     Route::post('/koleksi/simpan/{buku}', [KoleksiController::class, 'simpan'])->name('koleksi.simpan');
+    Route::delete('/koleksi/{koleksi}', [KoleksiController::class, 'hapus'])->name('koleksi.hapus');
 });
 
 //Route untuk login dan logout 
 Route::get('/login', [AuthManualController::class, 'index'])->name('login');
 Route::get('/registrasi', [AuthManualController::class, 'registrasi'])->name('registrasi');
+
 Route::post('/registrasi', [AuthManualController::class, 'registrasiProses'])->name('registrasiProses');
 Route::post('/login', [AuthManualController::class, 'loginProses'])->name('loginProses');
+
 Route::post('/logout',[AuthManualController::class, 'logout'])->name('logout');
 
 //Route untuk test

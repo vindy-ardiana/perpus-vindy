@@ -34,7 +34,6 @@ class KategoriController extends Controller
             'nama_kategori' => 'required|max:100',
 
         ]);
-
         // simpan data
         Kategori::create($validatedData);
 

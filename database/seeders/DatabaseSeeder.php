@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        // User::factory()->create([
-        //     'name' => 'Vindy Ardiana',
-        //     'email' => 'admin@admin.com',
-        //     'password' => Hash::make('admin123'),
-        //     'role' => 'admin'
-        // ]);
+        User::factory()->create([
+            'name' => 'Vindy Ardiana',
+            'email' => 'admin@123.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'admin'
+        ]);
 
         Buku::factory()->count(50)->create();
     }
