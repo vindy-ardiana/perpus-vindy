@@ -30,7 +30,7 @@ class BukuController extends Controller
     } else {
         $allBuku = Buku::with('kategoris')->latest()->paginate(5);
     }
-        // $allBuku = Buku::all();
+        // $allBuku = Buku::all();%-33
         return view('buku.index', compact('allBuku'));
         // $totalBukus = Buku::count();
         // $totalStok = Buku::sum('stok');

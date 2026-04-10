@@ -74,14 +74,19 @@
                 <h2 class="text-lg font-semibold text-indigo-700">@yield('title', 'Dashboard')</h2>
 
                 <div class="relative group">
-                    <button
-                        class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl shadow-sm hover:shadow transition">
-                        <img src="https://via.placeholder.com/40"
-                            class="w-9 h-9 rounded-full border border-indigo-200">
-                        <span class="text-gray-700 font-medium">
-                            {{ Auth::user()->name }}
-                        </span>
-                    </button>
+                    @php
+    $nama = explode(' ', Auth::user()->name);
+    $inisial = strtoupper(substr($nama[0],0,1) . (isset($nama[1]) ? substr($nama[1],0,1) : ''));
+@endphp
+
+    <button class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl shadow-sm hover:shadow transition">
+        <div class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold text-sm">
+        {{ $inisial }}
+        </div>
+    <span class="text-gray-700 font-medium">
+        {{ Auth::user()->name }}
+    </span>
+    </button>
                 </div>
             </header>
 

@@ -14,8 +14,10 @@
     </style>
 </head>
 <body>
+
     <h2>Laporan Data Buku</h2>
     <p class="meta">Dicetak: {{ now()->format('d/m/Y H:i') }}</p>
+
     <table>
         <thead>
             <tr>
@@ -40,8 +42,17 @@
             @endforeach
         </tbody>
     </table>
+
     @if($buku->isEmpty())
         <p style="margin-top:15px">Tidak ada data.</p>
     @endif
+
+    <div style="margin-top:50px; width:100%; text-align:right;">
+        <p>Bandung, {{ now()->format('d F Y') }}</p>
+        <p>Petugas Perpustakaan</p>
+        <br><br><br>
+        <p>(__________________)</p>
+    </div>
+
 </body>
-</html>
+</html> 
